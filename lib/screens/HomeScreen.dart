@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
     var hi = MediaQuery.of(context).size.height;
     var wi = MediaQuery.of(context).size.width;
     return MaterialApp(
-      color: Colors.white,
+      color: Color.fromRGBO(18, 18, 18, 1),
       home: Scaffold(
         body: SingleChildScrollView(
           child: Form(
@@ -111,9 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   // ),
                   // Container(height: 8000, child: PostList()),
                   isLoading
-                      ? Center(
-                          child:
-                              CircularProgressIndicator(), // Show loading spinner
+                      ? Container(
+                          color: Color.fromRGBO(18, 18, 18, 1),
+                          height: hi - 140,
+                          child: Center(
+                            child:
+                                CircularProgressIndicator(), // Show loading spinner
+                          ),
                         )
                       : Container(
                           // color: Color.fromRGBO(40, 40, 40, 1),

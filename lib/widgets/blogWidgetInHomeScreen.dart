@@ -33,7 +33,7 @@ class _CardWidgetState extends State<CardWidget> {
           color: Color.fromRGBO(18, 18, 18, 1),
         ),
         child: Card(
-          color: Color.fromRGBO(247, 255, 255, 1),
+          color: Color.fromRGBO(40, 40, 40, 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -48,26 +48,32 @@ class _CardWidgetState extends State<CardWidget> {
                   children: <Widget>[
                     SizedBox(
                       height: 180,
+                      width: wi * 0.95,
                       child: CachedNetworkImage(
                         imageUrl: widget.blog.imageUrl,
                         fit: BoxFit.fill,
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        errorWidget: (context, url, error) => Center(
+                          child: Text("Something went wrong ..."),
+                        ),
                         placeholder: (BuildContext context, String url) =>
                             Container(
                           width: 320,
                           height: 240,
-                          child: Text("no image to display "),
+                          child: Center(child: Text("Loading...")),
                         ),
                       ),
                     ),
 
-                    Text(
-                      widget.blog.title,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: Color.fromARGB(255, 0, 0, 0),
+                    Container(
+                      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                      child: Text(
+                        widget.blog.title,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
                     ),
                     // Container(height: 25),
                     // Text(
