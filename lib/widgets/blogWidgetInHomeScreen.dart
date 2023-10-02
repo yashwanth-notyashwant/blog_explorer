@@ -67,7 +67,9 @@ class _CardWidgetState extends State<CardWidget> {
                             Container(
                           width: 320,
                           height: 240,
-                          child: Center(child: Text("Loading...")),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
                         ),
                       ),
                     ),
@@ -99,9 +101,9 @@ class _CardWidgetState extends State<CardWidget> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                InkWell(
-                                  onTap: toggleLike,
-                                  child: Icon(
+                                IconButton(
+                                  onPressed: toggleLike,
+                                  icon: Icon(
                                     isLiked
                                         ? Icons.favorite
                                         : Icons.favorite_border,
