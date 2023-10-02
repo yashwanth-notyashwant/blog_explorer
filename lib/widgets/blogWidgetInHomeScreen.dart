@@ -13,6 +13,14 @@ class CardWidget extends StatefulWidget {
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  bool isLiked = false;
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var wi = MediaQuery.of(context).size.width;
@@ -63,71 +71,50 @@ class _CardWidgetState extends State<CardWidget> {
                         ),
                       ),
                     ),
-
                     Container(
-                      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-                      child: Text(
-                        widget.blog.title,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white),
-                        maxLines: 2,
+                      height: 52,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            width: wi * 0.75,
+                            padding:
+                                EdgeInsets.only(left: 10, right: 10, top: 10),
+                            // margin: EdgeInsets.only(right: ),
+                            child: Text(
+                              widget.blog.title,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const Spacer(),
+                          Container(
+                            // width: wi * 0.15,
+                            margin: EdgeInsets.only(right: 15),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: toggleLike,
+                                  child: Icon(
+                                    isLiked
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isLiked ? Colors.red : Colors.grey,
+                                    size: 30.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    // Container(height: 25),
-                    // Text(
-                    //   widget.blog.imageUrl,
-                    //   style: TextStyle(
-                    //     fontSize: 15,
-                    //     color: Color.fromARGB(255, 51, 51, 51),
-                    //   ),
-                    //   maxLines: 5,
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
-                    // Row(
-                    //   children: <Widget>[
-                    //     const Spacer(),
-                    //     TextButton(
-                    //       style: TextButton.styleFrom(
-                    //         foregroundColor: Colors.transparent,
-                    //       ),
-                    //       child: const Text(
-                    //         "Edit",
-                    //         style: TextStyle(
-                    //             color: Colors.pinkAccent, fontSize: 18),
-                    //       ),
-                    //       onPressed: () {
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //       builder: (context) =>
-                    //         //           PostsEditScreen()),
-                    //         // );
-                    //       },
-                    //     ),
-                    //     TextButton(
-                    //       style: TextButton.styleFrom(
-                    //         foregroundColor: Colors.transparent,
-                    //       ),
-                    //       child: const Text(
-                    //         "Delete",
-                    //         style: TextStyle(
-                    //             color: Colors.pinkAccent, fontSize: 18),
-                    //       ),
-                    //       onPressed: () async {
-                    //         // bool stat = await Provider.of<Posts>(context,
-                    //         //         listen: false)
-                    //         //     .deletePostFromDatabase(widget.post.id);
-                    //         // if (stat == true) {
-                    //         //   // ignore: use_build_context_synchronously
-                    //         // }
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
+                    )
                   ],
                 ),
               ),
