@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //   title: Text(posts[index].id),
                               //   subtitle: Text(posts[index].imageUrl),
                               // );
-                              return CardWidget(posts[index]);
+                              return CardWidget(posts[index], posts[index].id);
                             },
                           ),
                         ),

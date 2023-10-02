@@ -3,22 +3,53 @@ import 'dart:core';
 import 'package:blog_explorer/models/blog.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CardWidget extends StatefulWidget {
   Blog blog;
-  CardWidget(this.blog);
+  String id;
+  CardWidget(this.blog, this.id);
 
   @override
-  State<CardWidget> createState() => _CardWidgetState();
+  State<CardWidget> createState() => _CardWidgetState(id: id);
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  String id;
+  _CardWidgetState({required this.id});
+
   bool isLiked = false;
 
-  void toggleLike() {
+  // void toggleLike() {
+  //   setState(() {
+  //     // load from storage for liked list if id in liked list then make its is liked true
+  //     isLiked = !isLiked;
+  //   });
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    // Load like status from SharedPreferences when the widget initializes.
+    loadLikeStatus();
+  }
+
+  Future<void> loadLikeStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool liked = prefs.getBool(id) ?? false;
+    setState(() {
+      isLiked = liked;
+    });
+  }
+
+  Future<void> toggleLike() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Toggle the like status
     setState(() {
       isLiked = !isLiked;
     });
+    // Save the updated like status to SharedPreferences
+    await prefs.setBool(id, isLiked);
   }
 
   @override
@@ -80,7 +111,7 @@ class _CardWidgetState extends State<CardWidget> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
-                            width: wi * 0.75,
+                            width: wi * 0.72,
                             padding:
                                 EdgeInsets.only(left: 10, right: 10, top: 10),
                             // margin: EdgeInsets.only(right: ),
@@ -94,10 +125,9 @@ class _CardWidgetState extends State<CardWidget> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
                           Container(
                             // width: wi * 0.15,
-                            margin: EdgeInsets.only(right: 15),
+                            margin: EdgeInsets.only(right: 18),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
