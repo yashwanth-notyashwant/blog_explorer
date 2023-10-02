@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../models/blog.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets/blogWidgetInHomeScreen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -75,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(top: 60, left: 25),
                         height: 140,
                         width: wi,
-                        color: Color.fromARGB(255, 1, 18, 23),
+                        // color: Color.fromRGBO(18, 18, 18, 1),
+                        color: Color.fromRGBO(40, 40, 40, 1),
                         child: Text(
                           'Blogs',
                           style: TextStyle(
@@ -90,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color.fromRGBO(18, 18, 18, 1),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25.0),
                               topRight: Radius.circular(25.0),
@@ -103,9 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  Container(
-                    height: hi * 0.15,
-                  ),
+                  // Container(
+                  //   height: hi * 0.15,
+                  // ),
                   // Container(height: 8000, child: PostList()),
                   isLoading
                       ? Center(
@@ -113,15 +116,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               CircularProgressIndicator(), // Show loading spinner
                         )
                       : Container(
+                          // color: Color.fromRGBO(40, 40, 40, 1),
+                          color: Color.fromRGBO(18, 18, 18, 1),
                           height: posts.length * 260,
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: posts.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(posts[index].id),
-                                subtitle: Text(posts[index].imageUrl),
-                              );
+                              // return ListTile(
+                              //   title: Text(posts[index].id),
+                              //   subtitle: Text(posts[index].imageUrl),
+                              // );
+                              return CardWidget(posts[index]);
                             },
                           ),
                         ),
