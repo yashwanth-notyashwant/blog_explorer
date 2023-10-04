@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (beginIndex == 0) {
         endIndex = 5;
       }
-      if (loadMore == false) {
+      if (loadMore == false && beginIndex != 0) {
         endIndex = beginIndex;
       }
       if (loadMore == true) {
@@ -270,15 +270,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Container(
                           // color: Color.fromRGBO(40, 40, 40, 1),
                           color: Color.fromRGBO(18, 18, 18, 1),
-                          height: mainListOut.length * 262,
+                          height: mainListOut.length * 264,
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: mainListOut.length,
                             itemBuilder: (context, index) {
-                              // return ListTile(
-                              //   title: Text(posts[index].id),
-                              //   subtitle: Text(posts[index].imageUrl),
-                              // );
                               return CardWidget(
                                   mainListOut[index], mainListOut[index].id);
                             },
@@ -296,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         await fetchPosts(true);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 27, 67, 77),
+                        backgroundColor: Color.fromRGBO(40, 40, 40, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20.0),

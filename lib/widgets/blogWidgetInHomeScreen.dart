@@ -10,6 +10,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
+import '../screens/blog_details.dart';
+
 class CardWidget extends StatefulWidget {
   // Blog blog;
   final blog;
@@ -63,11 +65,11 @@ class _CardWidgetState extends State<CardWidget> {
     var wi = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => PostsDetailScreen(widget.post)),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PostsDetailScreen(widget.blog)),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
@@ -91,14 +93,19 @@ class _CardWidgetState extends State<CardWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    // Provide a unique tag for each image
                     SizedBox(
                       height: 180,
                       width: wi * 0.95,
-                      child: Image.file(
-                        File(widget.blog.imagePath),
-                        fit: BoxFit.fill,
+                      child: Hero(
+                        tag: 'image${widget.blog.id}',
+                        child: Image.file(
+                          File(widget.blog.imagePath),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
+
                     Container(
                       height: 52,
                       child: Row(
