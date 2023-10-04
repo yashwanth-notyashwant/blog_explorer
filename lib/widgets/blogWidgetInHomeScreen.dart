@@ -1,12 +1,18 @@
 import 'dart:core';
 
-import 'package:blog_explorer/models/blog.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'dart:io';
+
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+
 class CardWidget extends StatefulWidget {
-  Blog blog;
+  // Blog blog;
+  final blog;
   String id;
   CardWidget(this.blog, this.id);
 
@@ -88,20 +94,9 @@ class _CardWidgetState extends State<CardWidget> {
                     SizedBox(
                       height: 180,
                       width: wi * 0.95,
-                      child: CachedNetworkImage(
-                        imageUrl: widget.blog.imageUrl,
+                      child: Image.file(
+                        File(widget.blog.imagePath),
                         fit: BoxFit.fill,
-                        errorWidget: (context, url, error) => Center(
-                          child: Text("Something went wrong ..."),
-                        ),
-                        placeholder: (BuildContext context, String url) =>
-                            Container(
-                          width: 320,
-                          height: 240,
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
                       ),
                     ),
                     Container(
